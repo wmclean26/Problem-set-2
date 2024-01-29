@@ -1,5 +1,5 @@
 import java.util.Iterator;
-public class ProblemSet2<Item>implements Iterable<Item> {
+public class LinkedList<Item>implements Iterable<Item> {
 
         // here are the instance variables/data fields for the list
         private int size;
@@ -46,22 +46,69 @@ public class ProblemSet2<Item>implements Iterable<Item> {
 
 
         public int indexOf(Item item){
-            if(size)
-
-            return 0;
+            Node<Item> x = first;
+            if (size <= 0){
+                return -1;
+            }
+            int index = 0;
+            for(int i = 0; i <= size; i++) {
+                if(x.item.equals(item)){
+                    return index;
+                }
+                x = x.next;
+                index++;
+            }
+            return -1;
         }
 
         public Item after(Item item){
-            return item;
+            Node<Item> x = first;
+            for (int i = 0; i < size - 1; i++) {
+                if(x.item.equals(item)){
+                    return x.next.item;
+                }
+                x = x.next;
+            }
+            return null;
         }
 
         public Item before(Item item){
-            return item;
+            if(size == 0){
+                add(item);
+                return null;
+            }
+            if(size < 2){
+                return null;
+            }
+            if(first.item.equals(item)){
+                return null;
+            }
+            Node<Item> x = first.next;
+            Node<Item> before = first;
+            for (int i = 0; i <= size; i++) {
+                if(x.item.equals(item)){
+                    return before.item;
+                }
+                before = x;
+                x = x.next;
+            }
+            return null;
         }
 
         public void addLast(Item item){
-
+            if(size <= 0){
+                add(item);
+                return;
+            }
+            Node<Item> x = first;
+            for(int j = 0; j < size-1; j++) {
+                x = x.next;
+            }
+            x.next = new Node<Item>();
+            x.next.item = item;
+            size++;
         }
+
 
         public void addAt(int i, Item item){
             if(i<0 || i > size+1){
